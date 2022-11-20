@@ -8,6 +8,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 @Controller
 @RequiredArgsConstructor
@@ -15,8 +16,8 @@ public class PetController {
     private final PetService petService;
 
     @GetMapping("/")
-    public String pets(Model model) {
-        model.addAttribute("pets", petService.listPets()); // передаем список всех товаров
+    public String pets(@RequestParam(name = "type", required = false) String type, Model model) {
+        model.addAttribute("pets", petService.listPets(type)); // передаем список всех товаров
         return "pets";
     }
 
