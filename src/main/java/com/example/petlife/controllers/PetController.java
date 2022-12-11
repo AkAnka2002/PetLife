@@ -9,6 +9,9 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.multipart.MultipartFile;
+
+import java.io.IOException;
 
 @Controller
 @RequiredArgsConstructor
@@ -23,13 +26,17 @@ public class PetController {
 
     @GetMapping("/pet/{id}")
     public String petInfo(@PathVariable Long id, Model model) {
-        model.addAttribute("pet", petService.getPetById(id));
+        Pet pet = petService.getPetById(id);
+//        System.out.println(pet.getId().getClass());
+//        System.out.println(pet.getId().toString());
+        model.addAttribute("pet", pet);
+        model.addAttribute("images", pet.getImages());
         return "pet-info";
     }
 
     @PostMapping("/pet/create")
-    public String createPet(Pet pet){
-        petService.savePet(pet);
+    public String createPet(@RequestParam("file") MultipartFile file, Pet pet) throws IOException {
+        petService.savePet(pet, file) ;
         return "redirect:/";
     }
 
