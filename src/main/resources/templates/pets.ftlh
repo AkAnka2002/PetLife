@@ -4,7 +4,7 @@
     <title>PETLIFE</title>
 </head>
 <body>
-<h1>PetLife</h1><hr>
+<h1>PetLife | <a href="/login">Войти</a></h1><hr>
 <h4>Ваши животные</h4>
 <form action="/" method="get">
     Поиск по типу животных: <input type="text" name="type"><br>
