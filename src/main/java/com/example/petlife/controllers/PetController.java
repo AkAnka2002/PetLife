@@ -1,6 +1,7 @@
 package com.example.petlife.controllers;
 
 import com.example.petlife.models.Pet;
+import com.example.petlife.models.User;
 import com.example.petlife.services.PetService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;

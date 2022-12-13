@@ -7,26 +7,18 @@
 <h1>PetLife</h1>
 <hr>
 <#if user.email??>
-    <h3>Имя пользователя: <i>${user.name}</i></h3>
+    <h3>Имя пользователя: <a href="/user/${user.id?c}"> <i>${user.name}</i></a></h3>
     <form action="/logout" method="post">
         <input type="hidden" name="_csrf" value="${_csrf.token}">
         <input type="submit" value="Выйти"/>
     </form>
+    <#if user.isAdmin()>
+        <a href="/admin">Панель администратора</a>
+    </#if>
 <#else>
     <a href="/login">Войти</a>
 </#if>
-<h4>Ваши животные</h4>
-<form action="/" method="get">
-    Поиск по типу животных: <input type="text" name="type">
-    <input type="submit" value="Поиск"/>
-</form>
-<#list pets as pet>
-    <div>
-        <p><b>${pet.name}</b>, ${pet.type} | <a href="/pet/${pet.id?c}">Подробнее...</a></p>
-    </div>
-<#else>
-    <h3>Животных нет</h3>
-</#list>
+<h4><a href="/user/${user.id?c}"> Ваши животные</a></h4>
 <#if user.email??>
     <hr>
     <h3>Добавить нового питомца</h3>
