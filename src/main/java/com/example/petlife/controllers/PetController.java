@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
+import java.security.Principal;
 
 @Controller
 @RequiredArgsConstructor
@@ -19,8 +20,9 @@ public class PetController {
     private final PetService petService;
 
     @GetMapping("/")
-    public String pets(@RequestParam(name = "type", required = false) String type, Model model) {
+    public String pets(@RequestParam(name = "type", required = false) String type, Principal principal, Model model) {
         model.addAttribute("pets", petService.listPets(type)); // передаем список всех товаров
+        model.addAttribute("user", petService.getUserByPrincipal(principal));
         return "pets";
     }
 
@@ -35,8 +37,9 @@ public class PetController {
     }
 
     @PostMapping("/pet/create")
-    public String createPet(@RequestParam("file") MultipartFile file, Pet pet) throws IOException {
-        petService.savePet(pet, file) ;
+    public String createPet(@RequestParam("file") MultipartFile file, Pet pet, Principal principal) throws IOException {
+        System.out.println("PetController");
+        petService.savePet(principal, pet, file) ;
         return "redirect:/";
     }
 
