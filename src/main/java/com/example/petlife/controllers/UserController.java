@@ -10,6 +10,8 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 
+import java.io.IOException;
+
 @Controller
 @RequiredArgsConstructor
 public class UserController {
@@ -27,8 +29,8 @@ public class UserController {
     }
 
     @PostMapping("/registration")
-    public String createUser(User user, Model model) {
-        if (!userService.creareUser(user)) {
+    public String createUser(User user, Model model) throws IOException {
+        if (!userService.createUser(user)) {
             model.addAttribute("errorMessage", "Пользователь с email: " + user.getEmail() + " уже существует");
             return "registration";
         }
@@ -39,6 +41,7 @@ public class UserController {
     public String userInfo(@PathVariable("user") User user, Model model) {
         model.addAttribute("user", user);
         model.addAttribute("pets", user.getPets());
+        model.addAttribute("image", user.getAvatar());
         return "user-info";
     }
 }

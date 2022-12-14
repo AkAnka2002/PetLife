@@ -9,8 +9,9 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
+import org.springframework.mock.web.MockMultipartFile;
 
-import java.io.IOException;
+import java.io.*;
 import java.security.Principal;
 import java.util.List;
 
@@ -28,18 +29,20 @@ public class PetService {
     }
 
     public void savePet(Principal principal, Pet pet, MultipartFile file) throws IOException {
-        System.out.println("PetService");
+        System.out.println("PetServiceSave");
         pet.setUser(getUserByPrincipal(principal));
         Image image;
         if (file.getSize() != 0) {
             image = toImageEntity(file);
-            image.setPreviewImage(true);
-            pet.addImageToPet(image);
+            pet.setImage(image);
+        } else {
+            MultipartFile file1 = new MockMultipartFile("img_1.png", new FileInputStream(new File("src/main/resources/static/images/img_1.png")));
+            image = toImageEntity(file1);
+            image.setContentType("image/jpeg");
+            image.setOriginalFileName("img_1.png");
+            pet.setImage(image);
         }
         log.info("Saving new Pet. Name: {}; Type: {}", pet.getName(), pet.getType());
-        Pet petFromDb = petRepository.save(pet);
-        petFromDb.setPreviewImageId(petFromDb.getImages().get(0).getId());
-        System.out.println("PetService1");
         petRepository.save(pet);
     }
 
@@ -48,7 +51,7 @@ public class PetService {
         return userRepository.findByEmail(principal.getName());
     }
 
-    private Image toImageEntity(MultipartFile file) throws IOException {
+    public Image toImageEntity(MultipartFile file) throws IOException {
         Image image = new Image();
         image.setName(file.getName());
         image.setOriginalFileName(file.getOriginalFilename());

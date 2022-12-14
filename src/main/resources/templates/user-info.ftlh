@@ -6,6 +6,7 @@
 <body>
 <h1>PetLife</h1><hr>
 <h4>Профиль</h4>
+<img src="/images/${image.id?c}" height="60ps"/> <br><br>
 <b>Имя: </b> ${user.name} <br>
 <b>Адрес электронной почты: </b> ${user.email} <br>
 <b>Номер телефона: </b> ${user.phoneNumber} <br>

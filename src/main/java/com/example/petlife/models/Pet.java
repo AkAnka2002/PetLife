@@ -24,13 +24,15 @@ public class Pet {
     @Column(name = "description", columnDefinition = "text")
     private String description;
 
-    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY, mappedBy = "pet")
-    // все эти свойства принадлежат тому же самому pet, который написан в модели Pet. Создастся еще одно поле с id животного
-    // Типа каскада All - при сохранении животного, включающего фотографии, сохранятся будут не только он, но и связанные с ним сущности
-    private List<Image> images = new ArrayList<>();
-    private Long previewImageId;
+    @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    @JoinColumn(name = "image_id")
+    private Image image;
+//    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY, mappedBy = "pet")
+//    // все эти свойства принадлежат тому же самому pet, который написан в модели Pet. Создастся еще одно поле с id животного
+//    // Типа каскада All - при сохранении животного, включающего фотографии, сохранятся будут не только он, но и связанные с ним сущности
+//    private List<Image> images = new ArrayList<>();
+//    private Long previewImageId;
     @ManyToOne(cascade = CascadeType.REFRESH, fetch = FetchType.LAZY)
-    @JoinColumn
     private User user;
     private LocalDateTime dateOfCreated; // дата создания
 
@@ -40,8 +42,8 @@ public class Pet {
         this.type = type;
         this.age = age;
         this.description = description;
-        this.images = images;
-        this.previewImageId = previewImageId;
+        this.image = image;
+//        this.previewImageId = previewImageId;
         this.dateOfCreated = dateOfCreated;
     }
 
@@ -53,10 +55,10 @@ public class Pet {
         dateOfCreated = LocalDateTime.now();
     }
 
-    public void addImageToPet(Image image) {
-        image.setPet(this);
-        images.add(image);
-    }
+//    public void addImageToPet(Image image) {
+//        image.setPet(this);
+//        image.add(image);
+//    }
 
     protected boolean canEqual(final Object other) {
         return other instanceof Pet;

@@ -44,4 +44,10 @@ public class AdminController {
         userService.changeUserRoles(user, form);
         return "redirect:/admin";
     }
+
+    @GetMapping("/user/edit/{user}")
+    public String useruserEdit(@PathVariable("user") User user, Model model) {
+        model.addAttribute("user", user);
+        return "user-edit";
+    }
 }

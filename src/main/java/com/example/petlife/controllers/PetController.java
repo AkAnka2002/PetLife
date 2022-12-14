@@ -30,16 +30,13 @@ public class PetController {
     @GetMapping("/pet/{id}")
     public String petInfo(@PathVariable Long id, Model model) {
         Pet pet = petService.getPetById(id);
-//        System.out.println(pet.getId().getClass());
-//        System.out.println(pet.getId().toString());
         model.addAttribute("pet", pet);
-        model.addAttribute("images", pet.getImages());
+        model.addAttribute("image", pet.getImage());
         return "pet-info";
     }
 
     @PostMapping("/pet/create")
     public String createPet(@RequestParam("file") MultipartFile file, Pet pet, Principal principal) throws IOException {
-        System.out.println("PetController");
         petService.savePet(principal, pet, file) ;
         return "redirect:/";
     }

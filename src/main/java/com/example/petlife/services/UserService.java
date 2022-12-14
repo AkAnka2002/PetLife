@@ -1,14 +1,21 @@
 // базовая логика регистрации
 package com.example.petlife.services;
 
+import com.example.petlife.models.Image;
 import com.example.petlife.models.User;
 import com.example.petlife.models.enams.Role;
+import com.example.petlife.repositories.PetRepository;
 import com.example.petlife.repositories.UserRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.mock.web.MockMultipartFile;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
+import org.springframework.web.multipart.MultipartFile;
 
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.IOException;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
@@ -20,14 +27,21 @@ import java.util.stream.Collectors;
 @RequiredArgsConstructor
 public class UserService {
     private final UserRepository userRepository;
+    private final PetService petService;
     private final PasswordEncoder passwordEncoder;
 
-    public boolean creareUser (User user) {
+    public boolean createUser (User user) throws IOException {
         String email = user.getEmail();
         if (userRepository.findByEmail(email) != null) return false;
         user.setActive(true);
         user.setPassword(passwordEncoder.encode(user.getPassword())); // шифрование пароля
         user.getRoles().add(Role.ROLE_USER);
+        Image image;
+        MultipartFile file1 = new MockMultipartFile("img.png", new FileInputStream(new File("src/main/resources/static/images/img.png")));
+        image = petService.toImageEntity(file1);
+        image.setContentType("image/jpeg");
+        image.setOriginalFileName("img.png");
+        user.setAvatar(image);
         log.info("Saving new User with email: {}", email);
         userRepository.save(user);
         return true;
