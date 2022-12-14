@@ -23,6 +23,8 @@ public class User implements UserDetails {
     private String phoneNumber;
     @Column(name = "name")
     private String name;
+    @Column(name = "gender")
+    private String gender;
     @Column(name = "active")
     private boolean active; //true - пользователь активен
     @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)

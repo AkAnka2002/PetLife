@@ -3,6 +3,7 @@ package com.example.petlife.controllers;
 import com.example.petlife.models.Pet;
 import com.example.petlife.models.User;
 import com.example.petlife.services.PetService;
+import com.example.petlife.services.UserService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -19,6 +20,7 @@ import java.security.Principal;
 @RequiredArgsConstructor
 public class PetController {
     private final PetService petService;
+    private final UserService userService;
 
     @GetMapping("/")
     public String pets(@RequestParam(name = "type", required = false) String type, Principal principal, Model model) {
@@ -28,7 +30,8 @@ public class PetController {
     }
 
     @GetMapping("/pet/{id}")
-    public String petInfo(@PathVariable Long id, Model model) {
+    public String petInfo(@PathVariable Long id, Model model, Principal principal) {
+        model.addAttribute("user", userService.getUserByPrincipal(principal));
         Pet pet = petService.getPetById(id);
         model.addAttribute("pet", pet);
         model.addAttribute("image", pet.getImage());

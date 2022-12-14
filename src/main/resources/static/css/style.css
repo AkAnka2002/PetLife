@@ -1,0 +1,9 @@
+.pet:hover {
+    transition: 0.5s;
+    transform: scale(1.02);
+}
+
+.pet-link {
+    color: #000 !important;
+    text-decoration: none
+}

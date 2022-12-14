@@ -2,6 +2,7 @@
 package com.example.petlife.services;
 
 import com.example.petlife.models.Image;
+import com.example.petlife.models.Pet;
 import com.example.petlife.models.User;
 import com.example.petlife.models.enams.Role;
 import com.example.petlife.repositories.PetRepository;
@@ -16,6 +17,7 @@ import org.springframework.web.multipart.MultipartFile;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
+import java.security.Principal;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
@@ -30,18 +32,27 @@ public class UserService {
     private final PetService petService;
     private final PasswordEncoder passwordEncoder;
 
-    public boolean createUser (User user) throws IOException {
+    public boolean createUser (User user, MultipartFile file, String gender) throws IOException {
         String email = user.getEmail();
         if (userRepository.findByEmail(email) != null) return false;
         user.setActive(true);
         user.setPassword(passwordEncoder.encode(user.getPassword())); // шифрование пароля
         user.getRoles().add(Role.ROLE_USER);
         Image image;
-        MultipartFile file1 = new MockMultipartFile("img.png", new FileInputStream(new File("src/main/resources/static/images/img.png")));
-        image = petService.toImageEntity(file1);
-        image.setContentType("image/jpeg");
-        image.setOriginalFileName("img.png");
+        if (file != null) {
+            image = toImageEntity(file);
+        } else {
+            MultipartFile file1 = new MockMultipartFile("img.png", new FileInputStream(new File("src/main/resources/static/images/img.png")));
+            image = petService.toImageEntity(file1);
+            image.setContentType("image/jpeg");
+            image.setOriginalFileName("img.png");
+        }
         user.setAvatar(image);
+        if (gender != null) {
+            user.setGender(gender);
+        } else {
+            user.setGender("Пол не указан");
+        }
         log.info("Saving new User with email: {}", email);
         userRepository.save(user);
         return true;
@@ -77,5 +88,24 @@ public class UserService {
             }
         }
         userRepository.save(user);
+    }
+
+    public Object getUserByPrincipal(Principal principal) {
+        if (principal == null) return new User();
+        return userRepository.findByEmail(principal.getName());
+    }
+
+    public Image toImageEntity(MultipartFile file) throws IOException {
+        Image image = new Image();
+        image.setName(file.getName());
+        image.setOriginalFileName(file.getOriginalFilename());
+        image.setContentType(file.getContentType());
+        image.setSize(file.getSize());
+        image.setBytes(file.getBytes());
+        return image;
+    }
+
+    public User getUserById(Long id) {
+        return userRepository.findById(id).orElse(null);
     }
 }

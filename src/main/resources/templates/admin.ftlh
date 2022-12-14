@@ -1,9 +1,6 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
-<head>
-    <title>PETLIFE</title>
-</head>
-<body>
+<#import "blocks/template.ftlh" as t>
+<@t.template user>
 <h1>PetLife</h1><hr>
 <h4>Панель администратора</h4>
 <table border="1">
@@ -35,5 +32,4 @@
         <h3>Пользователей нет</h3>
     </#list>
 </table>
-</body>
-</html>
+</@t.template>

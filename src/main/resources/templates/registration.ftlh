@@ -1,9 +1,5 @@
-<!DOCTYPE html>
-<html>
-<head>
-    <title>PetLife</title>
-</head>
-<body>
+<#import "blocks/template.ftlh" as t>
+<@t.template user>
 <h1>PetLife</h1><hr>
 <h4>Регистрация</h4>
 <form action="/registration" method="post">
@@ -17,5 +13,4 @@
 <#if errorMessage??>
     <h2 style="color: red">${errorMessage}</h2>
 </#if>
-</body>
-</html>
+</@t.template>

@@ -1,9 +1,5 @@
-<!DOCTYPE html>
-<html>
-<head>
-    <title>PETLIFE</title>
-</head>
-<body>
+<#import "blocks/template.ftlh" as t>
+<@t.template user>
 <h1>PetLife</h1>
 <hr>
 <h4>Подробная информация о животном</h4>
@@ -17,5 +13,4 @@
     <input type="hidden" name="_csrf" value="${_csrf.token}">
     <input type="submit" value="Удалить питомца"/>
 </form>
-</body>
-</html>
+</@t.template>
