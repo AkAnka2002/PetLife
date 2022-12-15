@@ -1,4 +1,3 @@
-<!DOCTYPE html>
 <#import "blocks/template.ftlh" as t>
 <@t.template user>
 <h1>PetLife</h1><hr>

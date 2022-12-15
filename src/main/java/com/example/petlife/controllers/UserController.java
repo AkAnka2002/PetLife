@@ -46,7 +46,12 @@ public class UserController {
     }
 
     @GetMapping("/user/{user}")
-    public String userInfo(@PathVariable("user") User user, Model model) {
+    public String userInfo(@PathVariable("user") User user, Model model, Principal principal) {
+        User user1 = userRepository.findByEmail(principal.getName());
+        if (user1.getId() != user.getId()) {
+            return "hello";
+        }
+        System.out.println(principal.getName());
         model.addAttribute("user", user);
         model.addAttribute("pets", user.getPets());
         model.addAttribute("image", user.getAvatar());
@@ -54,7 +59,11 @@ public class UserController {
     }
 
     @GetMapping("/user/{user}/update")
-    public String userUpdateButton(@PathVariable("user") User user, Model model) {
+    public String userUpdateButton(@PathVariable("user") User user, Model model, Principal principal) {
+        User user1 = userRepository.findByEmail(principal.getName());
+        if (user1.getId() != user.getId()) {
+            return "hello";
+        }
         model.addAttribute("user", user);
         model.addAttribute("image", user.getAvatar());
         return "user-update";
@@ -65,8 +74,7 @@ public class UserController {
                              String name, String phoneNumber, String email) throws IOException {
         User user = userService.getUserById(id);
 //        .orElseThrow()
-        if (name.length() != 0) { user.setName(name); }
-        if (email.length() != 0) user.setEmail(email);
+        if (name.length() != 0) user.setName(name);
         if (phoneNumber.length() != 0) user.setPhoneNumber(phoneNumber);
         if (gender.length() != 0) user.setGender(gender);
         Image image;
