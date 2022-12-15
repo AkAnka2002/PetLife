@@ -21,6 +21,12 @@ public class Pet {
     private String type;
     @Column(name = "age")
     private int age;
+    @Column(name = "gender")
+    private String gender;
+    @Column(name = "breed")
+    private String breed;
+    @Column(name = "castration")
+    private String castration;
     @Column(name = "description", columnDefinition = "text")
     private String description;
 
@@ -34,16 +40,18 @@ public class Pet {
 //    private Long previewImageId;
     @ManyToOne(cascade = CascadeType.REFRESH, fetch = FetchType.LAZY)
     private User user;
+
+    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER, mappedBy = "pet")
+    private List<Note> notes = new ArrayList<>();
     private LocalDateTime dateOfCreated; // дата создания
 
-    public Pet(Long id, String name, String type, int age, String description, List<Image> images, Long previewImageId, LocalDateTime dateOfCreated) {
+    public Pet(Long id, String name, String type, int age, String description, Image image, LocalDateTime dateOfCreated) {
         this.id = id;
         this.name = name;
         this.type = type;
         this.age = age;
         this.description = description;
         this.image = image;
-//        this.previewImageId = previewImageId;
         this.dateOfCreated = dateOfCreated;
     }
 
@@ -54,11 +62,6 @@ public class Pet {
     private void init() {
         dateOfCreated = LocalDateTime.now();
     }
-
-//    public void addImageToPet(Image image) {
-//        image.setPet(this);
-//        image.add(image);
-//    }
 
     protected boolean canEqual(final Object other) {
         return other instanceof Pet;

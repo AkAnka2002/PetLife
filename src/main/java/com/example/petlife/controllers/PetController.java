@@ -1,7 +1,10 @@
 package com.example.petlife.controllers;
 
+import com.example.petlife.models.Image;
 import com.example.petlife.models.Pet;
 import com.example.petlife.models.User;
+import com.example.petlife.repositories.PetRepository;
+import com.example.petlife.repositories.UserRepository;
 import com.example.petlife.services.PetService;
 import com.example.petlife.services.UserService;
 import lombok.RequiredArgsConstructor;
@@ -21,6 +24,8 @@ import java.security.Principal;
 public class PetController {
     private final PetService petService;
     private final UserService userService;
+    private final UserRepository userRepository;
+    private final PetRepository petRepository;
 
     @GetMapping("/")
     public String pets(@RequestParam(name = "type", required = false) String type, Principal principal, Model model) {
@@ -35,18 +40,67 @@ public class PetController {
         Pet pet = petService.getPetById(id);
         model.addAttribute("pet", pet);
         model.addAttribute("image", pet.getImage());
+        model.addAttribute("notes", pet.getNotes());
         return "pet-info";
     }
 
     @PostMapping("/pet/create")
-    public String createPet(@RequestParam("file") MultipartFile file, Pet pet, Principal principal) throws IOException {
+    public String createPet(@RequestParam("file") MultipartFile file, Pet pet, Principal principal, Model model) throws IOException {
         petService.savePet(principal, pet, file) ;
-        return "redirect:/";
+        User user = userRepository.findByEmail(principal.getName());
+        model.addAttribute("user", user);
+        model.addAttribute("pets", user.getPets());
+        model.addAttribute("image", user.getAvatar());
+        return "user-info";
     }
 
     @PostMapping("/pet/delete/{id}")
-    public String deletePet(@PathVariable Long id) {
+    public String deletePet(@PathVariable Long id, Model model, Principal principal) {
         petService.deletePet(id);
-        return "redirect:/";
+        User user = userRepository.findByEmail(principal.getName());
+        model.addAttribute("user", user);
+        model.addAttribute("pets", user.getPets());
+        model.addAttribute("image", user.getAvatar());
+        return "user-info";
+    }
+
+    @GetMapping("/pet/add")
+    public String petAdd(Principal principal, Model model) {
+        model.addAttribute("user", userService.getUserByPrincipal(principal));
+        return "pet-add";
+    }
+
+    @GetMapping("/pet/{pet}/update")
+    public String petUpdateButton(@PathVariable("pet") Pet pet, Model model, Principal principal) {
+        User user = userRepository.findByEmail(principal.getName());
+        if (!user.getPets().contains(pet)) {
+            return "hello";
+        }
+        model.addAttribute("user", user);
+        model.addAttribute("pet", pet);
+        model.addAttribute("image", pet.getImage());
+        return "pet-update";
+    }
+
+    @PostMapping("/pet/{id}/update")
+    public String updatePet(@PathVariable Long id, @RequestParam("file") MultipartFile file, Model model, String gender,
+                             String name, String type, String breed, Integer age, String castration, String description) throws IOException {
+        Pet pet = petService.getPetById(id);
+//        .orElseThrow()
+        System.out.println("Update");
+        if (name.length() != 0) pet.setName(name);
+        if (type.length() != 0) pet.setType(type);
+        if (breed.length() != 0) pet.setBreed(breed);
+        if (gender.length() != 0) pet.setGender(gender);
+        if (age != null) pet.setAge(age);
+        if (castration.length() != 0) pet.setCastration(castration);
+        if (description.length() != 0) pet.setDescription(description);
+        Image image;
+        if (file.getSize() != 0) {
+            image = userService.toImageEntity(file);
+            pet.setImage(image);
+        }
+        petRepository.save(pet);
+        return "redirect:/pet/{id}";
     }
 }
