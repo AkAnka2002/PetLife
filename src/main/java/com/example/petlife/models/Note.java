@@ -41,5 +41,9 @@ public class Note {
     private void init() {
         dateOfCreated = LocalDateTime.now();
     }
+
+    public boolean hasImage() {
+        return image != null;
+    }
 }
 

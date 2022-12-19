@@ -1,7 +1,7 @@
 <#import "blocks/template.ftlh" as t>
 <@t.template user>
     <h3>Добавить нового питомца</h3>
-    <form action="/pet/create" method="post" enctype="multipart/form-data">
+    <form action="/pet/${user.id?c}/create" method="post" enctype="multipart/form-data">
         Кличка: <input type="text" name="name"/><br><br>
         Вид животного:
         <select class="form-select" aria-label="Select type" name="type">

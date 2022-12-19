@@ -1,6 +1,5 @@
 <#import "blocks/template.ftlh" as t>
 <@t.template user>
-<h1>PetLife</h1><hr>
 <h4>Панель администратора</h4>
 <table border="1">
     <tr>

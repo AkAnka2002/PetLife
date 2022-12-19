@@ -44,14 +44,12 @@ public class PetController {
         return "pet-info";
     }
 
-    @PostMapping("/pet/create")
-    public String createPet(@RequestParam("file") MultipartFile file, Pet pet, Principal principal, Model model) throws IOException {
-        petService.savePet(principal, pet, file) ;
+    @PostMapping("/pet/{id}/create")
+    public String createPet(@RequestParam("file") MultipartFile file, @PathVariable Long id, Pet pet, Principal principal, Model model) throws IOException {
         User user = userRepository.findByEmail(principal.getName());
-        model.addAttribute("user", user);
-        model.addAttribute("pets", user.getPets());
-        model.addAttribute("image", user.getAvatar());
-        return "user-info";
+        petService.savePet(user, pet, file) ;
+        System.out.println("CREATEPET");
+        return "redirect:/pet/{id}/mypet";
     }
 
     @PostMapping("/pet/delete/{id}")
@@ -60,8 +58,7 @@ public class PetController {
         User user = userRepository.findByEmail(principal.getName());
         model.addAttribute("user", user);
         model.addAttribute("pets", user.getPets());
-        model.addAttribute("image", user.getAvatar());
-        return "user-info";
+        return "my-pets";
     }
 
     @GetMapping("/pet/add")
@@ -102,5 +99,24 @@ public class PetController {
         }
         petRepository.save(pet);
         return "redirect:/pet/{id}";
+    }
+
+    @GetMapping("/calendar")
+    public String getCalendar (Model model, Principal principal) {
+        User user = userRepository.findByEmail(principal.getName());
+        model.addAttribute("user", user);
+        return "calendar";
+    }
+
+    @GetMapping("/pet/{id}/mypet")
+    public String userInfoPets(@PathVariable("id") Long id, Model model, Principal principal) {
+        User user1 = userRepository.findByEmail(principal.getName());
+        if (user1.getId() != id) {
+            return "hello";
+        }
+        User user = userRepository.findByEmail(principal.getName());
+        model.addAttribute("user", user);
+        model.addAttribute("pets", user.getPets());
+        return "my-pets";
     }
 }

@@ -1,6 +1,5 @@
 <#import "blocks/template.ftlh" as t>
 <@t.template user>
-    <h1>PetLife</h1><hr>
     <h4>Редактирование профиля</h4>
     <form method="post" enctype="multipart/form-data">
         Кличка: <input type="text" name="name" placeholder="${pet.name}"/><br><br>

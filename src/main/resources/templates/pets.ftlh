@@ -7,13 +7,13 @@
             <h3>Привет, <a href="/user/${user.id?c}"> <i>${user.name}</i></a>!</h3>
             <#if user.isAdmin()>
                 <p class="lead">
-                    <a href="/admin" class="btn btn-lg btn-secondary fw-bold border-white bg-white">Панель
+                    <a href="/admin" class="nav-link px-2 link-dark">Панель
                         администратора</a>
                 </p>
             </#if>
         <#else>
             <p class="lead">
-                <a href="/login" class="btn btn-lg btn-secondary fw-bold border-white bg-white">Начать работу</a>
+                <a href="/login" class="nav-link px-2 link-dark">Начать работу</a>
             </p>
         </#if>
     </main>

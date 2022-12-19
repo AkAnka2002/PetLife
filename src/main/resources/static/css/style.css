@@ -7,35 +7,36 @@
     color: #000 !important;
     text-decoration: none
 }
-html,
-body {
-    height: 100%;
+
+.navbar {
+    background-color: #ffc0cb;
 }
 body {
-    font-size: 100%;
-    line-height: 1.5;
-    font-family: sans-serif;
-    background: #28283b;
-    color: #444;
+    background-color: #ffe4e1;
 }
+
 *,
 *:before,
 *:after {
     box-sizing: border-box;
 }
+
 .group:after {
     content: "";
     display: table;
     clear: both;
 }
+
 img {
-    max-width: 100%;
+    max-width: 20%;
     height: auto;
     vertical-align: baseline;
 }
+
 a {
     text-decoration: none;
 }
+
 .calendar-wrapper {
     width: 360px;
     margin: 3em auto;
@@ -44,6 +45,7 @@ a {
     border-radius: 5px;
     background: #fff;
 }
+
 table {
     clear: both;
     width: 100%;
@@ -52,6 +54,7 @@ table {
     border-collapse: collapse;
     color: #444;
 }
+
 td {
     height: 48px;
     text-align: center;
@@ -60,38 +63,46 @@ td {
     border-top: 1px solid #dcdcff;
     width: 14.28571429%;
 }
+
 td.not-current {
     color: #c0c0c0;
 }
+
 td.today {
     font-weight: 700;
     color: #28283b;
     font-size: 1.5em;
 }
+
 thead td {
     border: none;
     color: #28283b;
     text-transform: uppercase;
     font-size: 1.5em;
 }
+
 #btnPrev {
     float: left;
     margin-bottom: 20px;
 }
+
 #btnPrev:before {
     content: '\f104';
     font-family: FontAwesome;
     padding-right: 4px;
 }
+
 #btnNext {
     float: right;
     margin-bottom: 20px;
 }
+
 #btnNext:after {
     content: '\f105';
     font-family: FontAwesome;
     padding-left: 4px;
 }
+
 #btnPrev,
 #btnNext {
     background: transparent;
@@ -104,6 +115,7 @@ thead td {
     text-transform: uppercase;
     transition: all 0.3s ease;
 }
+
 #btnPrev:hover,
 #btnNext:hover {
     color: #28283b;

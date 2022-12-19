@@ -51,4 +51,17 @@ public class NoteController {
         model.addAttribute("pet", petService.getPetById(id));
         return "note";
     }
+
+    @PostMapping("/note/delete/{id}")
+    public String deleteNote(@PathVariable Long id, Model model, Principal principal) {
+        Note note = noteService.getNoteById(id);
+        Pet pet = note.getPet();
+        noteService.deleteNote(id);
+        User user = userRepository.findByEmail(principal.getName());
+        model.addAttribute("user", user);
+        model.addAttribute("pet", pet);
+        model.addAttribute("image", pet.getImage());
+        model.addAttribute("notes", pet.getNotes());
+        return "pet-info";
+    }
 }

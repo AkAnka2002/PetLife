@@ -28,9 +28,9 @@ public class PetService {
         return petRepository.findAll();
     }
 
-    public void savePet(Principal principal, Pet pet, MultipartFile file) throws IOException {
+    public void savePet(User user, Pet pet, MultipartFile file) throws IOException {
         System.out.println("PetServiceSave");
-        pet.setUser(getUserByPrincipal(principal));
+        pet.setUser(user);
         Image image;
         if (file.getSize() != 0) {
             image = toImageEntity(file);

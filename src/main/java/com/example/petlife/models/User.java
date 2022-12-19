@@ -2,6 +2,8 @@ package com.example.petlife.models;
 
 import com.example.petlife.models.enams.Role;
 import lombok.Data;
+import org.hibernate.annotations.Fetch;
+import org.hibernate.annotations.FetchMode;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
@@ -39,7 +41,11 @@ public class User implements UserDetails {
     @Enumerated(EnumType.STRING)
     private Set<Role> roles = new HashSet<>();
     @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER, mappedBy = "user")
+    @Fetch(value = FetchMode.SUBSELECT)
     private List<Pet> pets = new ArrayList<>();
+    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER, mappedBy = "user")
+    @Fetch(value = FetchMode.SUBSELECT)
+    private List<CalendarNote> calendarNotes = new ArrayList<>();
     private LocalDateTime dateOfCreated;
 
     @PrePersist

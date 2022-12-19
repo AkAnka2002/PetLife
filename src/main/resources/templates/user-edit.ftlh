@@ -1,10 +1,5 @@
-<!DOCTYPE html>
-<html>
-<head>
-    <title>PetLife</title>
-</head>
-<body>
-<h1>PetLife</h1><hr>
+<#import "blocks/template.ftlh" as t>
+<@t.template user>
 <h4>Редактирование пользователя ${user.name}</h4>
 <form action="/admin/user/edit" method="post">
    <#list roles as role>
@@ -17,5 +12,4 @@
     <button type="submit">Сохранить</button>
 </form>
 
-</body>
-</html>
+</@t.template>
