@@ -14,8 +14,8 @@
             <option value="Не указан">Не указыван</option>
         </select>
         Аватар: <img src="/images/${image.id?c}" height="60ps"/> <br><br>
-        <input type="file" name="file"/><br><br>
+        <input type="file" class="btn btn-light me-2 btn-my nav_text" name="file"/><br><br>
         <input type="hidden" name="_csrf" value="${_csrf.token}">
-        <input type="submit" value="Изменить профиль"/>
+        <input type="submit" class="btn btn-light me-2 btn-my nav_text" value="Изменить профиль"/>
     </form>
 </@t.template>

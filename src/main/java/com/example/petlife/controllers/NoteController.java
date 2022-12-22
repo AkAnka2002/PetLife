@@ -1,6 +1,5 @@
 package com.example.petlife.controllers;
 
-import com.example.petlife.models.Image;
 import com.example.petlife.models.Note;
 import com.example.petlife.models.Pet;
 import com.example.petlife.models.User;
@@ -9,8 +8,6 @@ import com.example.petlife.services.NoteService;
 import com.example.petlife.services.PetService;
 import com.example.petlife.services.UserService;
 import lombok.RequiredArgsConstructor;
-import org.apache.catalina.LifecycleState;
-import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -19,14 +16,8 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 
-import java.awt.*;
 import java.io.IOException;
 import java.security.Principal;
-import java.sql.ResultSet;
-import java.sql.Statement;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Optional;
 
 @Controller
 @RequiredArgsConstructor

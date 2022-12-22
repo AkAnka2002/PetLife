@@ -1,15 +1,11 @@
 package com.example.petlife.services;
 
 import com.example.petlife.models.CalendarNote;
-import com.example.petlife.models.Image;
-import com.example.petlife.models.Note;
 import com.example.petlife.repositories.CalendarNoteRepository;
-import com.example.petlife.repositories.NoteRepository;
 import com.example.petlife.repositories.UserRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
-import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
 import java.security.Principal;

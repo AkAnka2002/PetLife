@@ -10,32 +10,17 @@
             <input type="email" name="username" class="form-control" id="floatingInput" placeholder="name@example.com" required>
             <label for="floatingInput">Адрес электронной почты</label>
         </div>
-
+<br>
         <div class="form-floating">
             <input type="password" name="password" class="form-control" id="floatingPassword" placeholder="Password" required>
             <label for="floatingPassword">Пароль</label>
-        </div>
+        </div> <br>
 
-        <div class="checkbox mb-3">
-            <label>
-                <input type="checkbox" value="remember-me"> Запомнить меня
-            </label>
-        </div>
         <input type="hidden" name="_csrf" value="${_csrf.token}">
-        <input type="submit" class="btn btn-outline-primary me-2" value="Войти"/>
-    </form>
+        <input type="submit" class="btn btn-light me-2 btn-my nav_text" value="Войти"/>
+    </form> <br>
     <a href="/registration">Зарегистрироваться</a>
     </div>
 </main>
-
 </body>
-<#--<body>-->
-<#--<form action="/login" method="post">-->
-<#--    Эл. почта: <input type="email" name="username"><br><br>-->
-<#--    Пароль: <input type="password" name="password"><br><br>-->
-<#--    <input type="hidden" name="_csrf" value="${_csrf.token}">-->
-<#--    <input type="submit" value="Вход"/>-->
-<#--</form>-->
-<#--<a href="/registration">Зарегистрироваться</a>-->
-<#--</body>-->
 </@t.template>

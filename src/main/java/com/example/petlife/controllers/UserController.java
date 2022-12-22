@@ -1,7 +1,6 @@
 package com.example.petlife.controllers;
 
 import com.example.petlife.models.Image;
-import com.example.petlife.models.Pet;
 import com.example.petlife.models.User;
 import com.example.petlife.repositories.UserRepository;
 import com.example.petlife.services.UserService;
@@ -47,7 +46,7 @@ public class UserController {
     @GetMapping("/user/{user}")
     public String userInfo(@PathVariable("user") User user, Model model, Principal principal) {
         User user1 = userRepository.findByEmail(principal.getName());
-        if (user1.getId() != user.getId()) {
+        if (user1.getId() != user.getId() && !user1.isAdmin()) {
             return "hello";
         }
         System.out.println(principal.getName());
@@ -60,7 +59,7 @@ public class UserController {
     @GetMapping("/user/{user}/update")
     public String userUpdateButton(@PathVariable("user") User user, Model model, Principal principal) {
         User user1 = userRepository.findByEmail(principal.getName());
-        if (user1.getId() != user.getId()) {
+        if (user1.getId() != user.getId() && !user1.isAdmin()) {
             return "hello";
         }
         model.addAttribute("user", user);

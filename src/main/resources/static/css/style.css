@@ -8,12 +8,38 @@
     text-decoration: none
 }
 
+
+
 .navbar {
     background-color: #ffc0cb;
 }
 body {
     background-color: #ffe4e1;
+
 }
+.myclass {
+    width: 70%;
+}
+
+.nav_text{
+    font-size: 14pt;
+    margin-left: 10px;
+    margin-right: 10px;
+}
+.btn-my{
+    /*background-color: #89f5e5;*/
+    /*color: black;*/
+    border-color: #FF4BDAFF;
+}
+.my-input {
+    width: 70%;
+    height: max-content;
+}
+/*.btn-my:hover{*/
+/*    !*background-color: #7FD9FFFF;*!*/
+/*    !*color: black;*!*/
+/*    border-color: #ff4bda;*/
+/*}*/
 
 *,
 *:before,
@@ -28,7 +54,7 @@ body {
 }
 
 img {
-    max-width: 20%;
+    max-width: 50%;
     height: auto;
     vertical-align: baseline;
 }

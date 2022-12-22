@@ -2,10 +2,8 @@
 package com.example.petlife.services;
 
 import com.example.petlife.models.Image;
-import com.example.petlife.models.Pet;
 import com.example.petlife.models.User;
 import com.example.petlife.models.enams.Role;
-import com.example.petlife.repositories.PetRepository;
 import com.example.petlife.repositories.UserRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -37,7 +35,7 @@ public class UserService {
         if (userRepository.findByEmail(email) != null) return false;
         user.setActive(true);
         user.setPassword(passwordEncoder.encode(user.getPassword())); // шифрование пароля
-        user.getRoles().add(Role.ROLE_ADMIN);
+        user.getRoles().add(Role.ROLE_USER);
         Image image;
         if (file != null) {
             image = toImageEntity(file);

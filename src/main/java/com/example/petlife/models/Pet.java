@@ -33,11 +33,8 @@ public class Pet {
     @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     @JoinColumn(name = "image_id")
     private Image image;
-//    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY, mappedBy = "pet")
-//    // все эти свойства принадлежат тому же самому pet, который написан в модели Pet. Создастся еще одно поле с id животного
-//    // Типа каскада All - при сохранении животного, включающего фотографии, сохранятся будут не только он, но и связанные с ним сущности
-//    private List<Image> images = new ArrayList<>();
-//    private Long previewImageId;
+   // все эти свойства принадлежат тому же самому pet, который написан в модели Pet. Создастся еще одно поле с id животного
+   // Типа каскада All - при сохранении животного, включающего фотографии, сохранятся будут не только он, но и связанные с ним сущности
     @ManyToOne(cascade = CascadeType.REFRESH, fetch = FetchType.LAZY)
     private User user;
 

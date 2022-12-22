@@ -176,7 +176,7 @@ window.onload = function () {
         $.post(`/user/${userId}/calendar`, formData, function (data) {
             console.log(data);
         });
-
+        document.getElementById("textLabel").value = "";
         return false;
     })
 }

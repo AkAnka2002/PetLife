@@ -9,7 +9,7 @@
    </#list>
     <input type="hidden" value="${user.id}" name="userId">
     <input type="hidden" value="${_csrf.token}" name="_csrf">
-    <button type="submit">Сохранить</button>
+    <button type="submit" class="btn btn-light me-2 btn-my nav_text">Сохранить</button>
 </form>
 
 </@t.template>

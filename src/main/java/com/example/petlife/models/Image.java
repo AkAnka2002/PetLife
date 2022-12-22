@@ -25,12 +25,10 @@ public class Image {
     private Long size; //Размер файла
     @Column(name = "contentType")
     private String contentType; //Расширение файла
-//    @Column(name = "isPreviewImage")
 //    private boolean isPreviewImage; //Флаг для "главной" фотографии
     @Lob
     private byte[] bytes; // массив байтов
     @OneToOne(cascade = CascadeType.REFRESH, fetch = FetchType.EAGER)
-//    @JoinColumn(name = "pet_id")
     // каскад - как повлияет удаление(действие) с сущностью фотографии на сущностью Pet
     // fetch - способ загрузки. Ленивая загрузка - животное сразу же не подключается, но по итогу получается полностью - быстрая работа кода, это не ленивый
     private Pet pet;

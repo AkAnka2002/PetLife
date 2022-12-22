@@ -23,8 +23,6 @@ public class PetService {
     private final UserRepository userRepository;
 
     public List<Pet> listPets(String type) {
-        List<Pet> pets = petRepository.findAll();
-        if (type != null) return petRepository.findByType(type);
         return petRepository.findAll();
     }
 

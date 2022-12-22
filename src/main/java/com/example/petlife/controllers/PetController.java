@@ -8,6 +8,7 @@ import com.example.petlife.repositories.UserRepository;
 import com.example.petlife.services.PetService;
 import com.example.petlife.services.UserService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -16,8 +17,11 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 
+import javax.swing.*;
 import java.io.IOException;
 import java.security.Principal;
+
+import static javax.swing.JOptionPane.showMessageDialog;
 
 @Controller
 @RequiredArgsConstructor
@@ -83,7 +87,6 @@ public class PetController {
     public String updatePet(@PathVariable Long id, @RequestParam("file") MultipartFile file, Model model, String gender,
                              String name, String type, String breed, Integer age, String castration, String description) throws IOException {
         Pet pet = petService.getPetById(id);
-//        .orElseThrow()
         System.out.println("Update");
         if (name.length() != 0) pet.setName(name);
         if (type.length() != 0) pet.setType(type);
@@ -111,8 +114,8 @@ public class PetController {
     @GetMapping("/pet/{id}/mypet")
     public String userInfoPets(@PathVariable("id") Long id, Model model, Principal principal) {
         User user1 = userRepository.findByEmail(principal.getName());
-        if (user1.getId() != id) {
-            return "hello";
+        if (user1.getId() != id ) {
+           return "hello";
         }
         User user = userRepository.findByEmail(principal.getName());
         model.addAttribute("user", user);

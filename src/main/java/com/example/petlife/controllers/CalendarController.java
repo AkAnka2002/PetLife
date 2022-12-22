@@ -1,13 +1,9 @@
 package com.example.petlife.controllers;
 
 import com.example.petlife.models.CalendarNote;
-import com.example.petlife.models.Note;
-import com.example.petlife.models.Pet;
 import com.example.petlife.models.User;
 import com.example.petlife.repositories.UserRepository;
 import com.example.petlife.services.CalendarService;
-import com.example.petlife.services.NoteService;
-import com.example.petlife.services.PetService;
 import com.example.petlife.services.UserService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
@@ -16,7 +12,6 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
 import java.security.Principal;
@@ -63,14 +58,4 @@ public class CalendarController {
         model.addAttribute("notes", user.getCalendarNotes());
         return "calendar";
     }
-
-//    @PostMapping("/calendarnote/delete/{id}")
-//    public String deleteCalNote(@PathVariable Long id, Model model, Principal principal) {
-//        CalendarNote note = calendarService.getCalNoteById(id);
-//        User user = note.getUser();
-//        calendarService.deleteCalNote(id);
-//        model.addAttribute("user", user);
-//        model.addAttribute("notes", user.getCalendarNotes());
-//        return "calendar-notes";
-//    }
 }
